@@ -18,17 +18,22 @@ $(document).ready(function() {
         }
     }
 
-    function reemplazar(stack, viejo, nuevo) {
-        if (stack.isEmpty()) return stack;
+    function reemplazarUltimo(stack, viejo, nuevo) {
+        let tempStack = new Stack();
+        let found = false;
 
-        let temp = stack.pop();
+        while (!stack.isEmpty()) {
+            let topElement = stack.pop();
+            if (topElement === viejo && !found) {
+                tempStack.push(nuevo);
+                found = true;
+            } else {
+                tempStack.push(topElement);
+            }
+        }
 
-        reemplazar(stack, viejo, nuevo);
-
-        if (temp === viejo) {
-            stack.push(nuevo);
-        } else {
-            stack.push(temp);
+        while (!tempStack.isEmpty()) {
+            stack.push(tempStack.pop());
         }
 
         return stack;
@@ -53,7 +58,7 @@ $(document).ready(function() {
 
         $('#original-stack').text(`Pila original: ${stack.printStack()}`);
 
-        reemplazar(stack, oldValue, newValue);
+        reemplazarUltimo(stack, oldValue, newValue);
 
         $('#new-stack').text(`Nueva pila: ${stack.printStack()}`);
     });

@@ -1,6 +1,7 @@
 $(document).ready(function() {
     let queue = [];
     const maxQueueSize = 5;
+    let nextTurn = 1;
 
     function ColaLlena() {
         return queue.length >= maxQueueSize;
@@ -23,22 +24,22 @@ $(document).ready(function() {
         }
 
         let clientName = $('#client-name').val();
-        let clientTurn = parseInt($('#client-turn').val());
         let clientMovement = $('#client-movement').val();
         let arrivalTime = new Date();
 
         let client = {
-            turn: clientTurn,
+            turn: nextTurn,
             name: clientName,
             movement: clientMovement,
             arrivalTime: arrivalTime
         };
 
         queue.push(client);
-
         updateQueueTable();
 
-        alert(`Cliente formado: ${clientName}\nTurno: ${clientTurn}\nMovimiento: ${clientMovement}\nHora de llegada: ${formatDate(arrivalTime)}`);
+        alert(`Cliente formado: ${clientName}\nTurno: ${nextTurn}\nMovimiento: ${clientMovement}\nHora de llegada: ${formatDate(arrivalTime)}`);
+
+        nextTurn++;
 
         $('#add-client-form')[0].reset();
     });
@@ -51,7 +52,7 @@ $(document).ready(function() {
 
         let clientAttended = queue.shift();
         let currentTime = new Date();
-        let waitTime = Math.floor((currentTime - clientAttended.arrivalTime) / 1000); // Tiempo en segundos
+        let waitTime = Math.floor((currentTime - clientAttended.arrivalTime) / 1000);
 
         updateQueueTable();
 
@@ -75,6 +76,7 @@ $(document).ready(function() {
 
     $('#exit-system').on('click', function() {
         queue = [];
+        nextTurn = 1;
         updateQueueTable();
         $('#results').empty();
         alert('Sistema cerrado. La cola ha sido vaciada.');

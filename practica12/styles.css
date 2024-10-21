@@ -1,0 +1,33 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+table {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+#salida-info {
+    background-color: #d4edda;
+    color: #155724;
+}

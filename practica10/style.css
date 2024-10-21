@@ -1,0 +1,23 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f4f7f6;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#queue-table-body tr td {
+    vertical-align: middle;
+}
+
+.btn {
+    font-weight: bold;
+}
+
+#results {
+    font-size: 18px;
+    font-weight: 600;
+    color: #16a085;
+}

@@ -26,7 +26,6 @@ $(document).ready(function() {
             return;
         }
 
-        // Crear pilas
         let stack1 = new Stack();
         let stack2 = new Stack();
         let resultStack = new Stack();

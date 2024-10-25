@@ -1,31 +1,54 @@
 $(document).ready(function() {
+    class Node {
+        constructor(value) {
+            this.value = value;
+            this.next = null;
+        }
+    }
+
     class Queue {
         constructor() {
-            this.items = [];
+            this.front = null;
+            this.rear = null;
+            this.length = 0;
         }
 
         enqueue(element) {
-            this.items.push(element);
+            const newNode = new Node(element);
+            if (this.rear) {
+                this.rear.next = newNode;
+            }
+            this.rear = newNode;
+            if (!this.front) {
+                this.front = newNode;
+            }
+            this.length++;
         }
 
         dequeue() {
             if (this.isEmpty()) {
                 return null;
             } else {
-                return this.items.shift();
+                const dequeuedValue = this.front.value;
+                this.front = this.front.next;
+                if (!this.front) {
+                    this.rear = null;
+                }
+                this.length--;
+                return dequeuedValue;
             }
         }
 
-        front() {
-            return this.isEmpty() ? null : this.items[0];
+        peek() {
+            return this.isEmpty() ? null : this.front.value;
         }
 
         size() {
-            return this.items.length;
+            return this.length;
         }
 
         isEmpty() {
-            return this.items.length === 0;
+            return this.length === 0;
         }
     }
 
@@ -33,7 +56,7 @@ $(document).ready(function() {
     const colors = ['Amarillo', 'Verde', 'Rojo', 'Azul', 'Naranja'];
     let carsPainted = 0;
     let totalTime = 0;
-    let speed = 20000; 
+    let speed = 10000; 
     let maxCars = 5;  
     let gameOver = false;
 
@@ -60,15 +83,15 @@ $(document).ready(function() {
 
     function adjustSpeed() {
         if (carsPainted >= 3 && carsPainted < 6) {
-            speed = 15000;
-        } else if (carsPainted >= 6 && carsPainted < 9) {
-            speed = 10000; 
-        } else if (carsPainted >= 9 && carsPainted < 12) {
             speed = 5000;
-        } else if (carsPainted >= 12 && carsPainted < 15) {
+        } else if (carsPainted >= 6 && carsPainted < 9) {
+            speed = 3000; 
+        } else if (carsPainted >= 9 && carsPainted < 12) {
             speed = 2000;
-        } else if (carsPainted >= 15) {
+        } else if (carsPainted >= 12 && carsPainted < 15) {
             speed = 1000;
+        } else if (carsPainted >= 15) {
+            speed = 500;
         }
         clearInterval(carArrivalInterval);    
         carArrivalInterval = setInterval(createCar, speed);
@@ -78,7 +101,7 @@ $(document).ready(function() {
         if (gameOver) return;
 
         const selectedColor = $('.color-btn.active').data('color');
-        const firstCar = carQueue.front();
+        const firstCar = carQueue.peek();
 
         if (!firstCar) {
             alert('No hay coches en la cola.');

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    // Clase para el nodo de auto
     class AutoNode {
         constructor(placas, propietario, horaEntrada) {
             this.placas = placas;
@@ -10,7 +9,6 @@ $(document).ready(function() {
         }
     }
 
-    // Clase para la Cola Circular Doblemente Ligada
     class ColaCircularDoble {
         constructor() {
             this.head = null;
@@ -18,7 +16,6 @@ $(document).ready(function() {
             this.size = 0;
         }
 
-        // Insertar un auto en la cola
         insertar(placas, propietario) {
             const nuevoAuto = new AutoNode(placas, propietario, new Date());
             if (this.size === 0) {
@@ -37,7 +34,6 @@ $(document).ready(function() {
             this.mostrarAutos();
         }
 
-        // Eliminar un auto de la cola (salida)
         eliminar() {
             if (this.size === 0) {
                 alert("No hay autos en el estacionamiento.");
@@ -46,7 +42,7 @@ $(document).ready(function() {
 
             const autoSalida = this.head;
             const horaSalida = new Date();
-            const tiempoEstacionado = Math.floor((horaSalida - autoSalida.horaEntrada) / 1000); // segundos
+            const tiempoEstacionado = Math.floor((horaSalida - autoSalida.horaEntrada) / 1000);
             const costo = tiempoEstacionado * 2;
 
             if (this.size === 1) {
@@ -68,7 +64,6 @@ $(document).ready(function() {
             };
         }
 
-        // Mostrar la lista de autos en la cola
         mostrarAutos() {
             const tableBody = $('#auto-registro');
             tableBody.empty();
@@ -93,7 +88,6 @@ $(document).ready(function() {
 
     const estacionamiento = new ColaCircularDoble();
 
-    // Registrar la entrada de un auto
     $('#entrada-auto-form').on('submit', function(e) {
         e.preventDefault();
         const placas = $('#placas').val();
@@ -106,7 +100,6 @@ $(document).ready(function() {
         $('#propietario').val('');
     });
 
-    // Registrar la salida de un auto
     $('#salida-auto-btn').on('click', function() {
         const autoSalida = estacionamiento.eliminar();
         if (autoSalida) {
